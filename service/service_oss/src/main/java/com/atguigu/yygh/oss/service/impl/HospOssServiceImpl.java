@@ -2,9 +2,6 @@ package com.atguigu.yygh.oss.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.common.auth.CredentialsProviderFactory;
-import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
-import com.aliyuncs.exceptions.ClientException;
 import com.atguigu.yygh.oss.prop.OssProperties;
 import com.atguigu.yygh.oss.service.HospOssService;
 import org.joda.time.DateTime;

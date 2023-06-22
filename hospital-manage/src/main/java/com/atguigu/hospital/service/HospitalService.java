@@ -1,6 +1,5 @@
 package com.atguigu.hospital.service;
 
-import java.io.IOException;
 import java.util.Map;
 
 public interface HospitalService {

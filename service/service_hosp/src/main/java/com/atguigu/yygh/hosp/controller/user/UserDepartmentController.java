@@ -1,7 +1,6 @@
 package com.atguigu.yygh.hosp.controller.user;
 
 import com.atguigu.yygh.hosp.service.DepartmentService;
-import com.atguigu.yygh.model.hosp.Department;
 import com.atguigu.yygh.result.R;
 import com.atguigu.yygh.vo.hosp.DepartmentVo;
 import io.swagger.annotations.ApiOperation;

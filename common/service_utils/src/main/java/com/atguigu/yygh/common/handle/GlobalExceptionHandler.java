@@ -1,8 +1,8 @@
 package com.atguigu.yygh.common.handle;
 
 
-import com.atguigu.yygh.result.R;
 import com.atguigu.yygh.common.exception.YyghException;
+import com.atguigu.yygh.result.R;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

@@ -3,14 +3,12 @@ package com.atguigu.yygh.hosp.controller.user;
 import com.atguigu.yygh.hosp.service.ScheduleService;
 import com.atguigu.yygh.model.hosp.Schedule;
 import com.atguigu.yygh.result.R;
-import com.atguigu.yygh.vo.hosp.ScheduleQueryVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

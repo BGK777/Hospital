@@ -1,39 +1,23 @@
 package com.atguigu.hospital.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.hospital.mapper.OrderInfoMapper;
 import com.atguigu.hospital.mapper.ScheduleMapper;
 import com.atguigu.hospital.model.OrderInfo;
 import com.atguigu.hospital.model.Patient;
 import com.atguigu.hospital.model.Schedule;
-import com.atguigu.hospital.service.ApiService;
 import com.atguigu.hospital.service.HospitalService;
-import com.atguigu.hospital.util.HttpRequestHelper;
 import com.atguigu.hospital.util.ResultCodeEnum;
 import com.atguigu.hospital.util.YyghException;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 @Service
 @Slf4j

@@ -2,8 +2,6 @@ package com.atguigu.hospital.util;
 
 import com.alibaba.fastjson.JSONArray;
 
-import java.util.List;
-
 public class PageModel<T> implements java.io.Serializable {
 
     // 总条数

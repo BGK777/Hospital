@@ -53,4 +53,19 @@ public class AdminUserInfoController {
         Map<String, Object> resMap = userInfoService.detail(id);
         return R.ok().data(resMap);
     }
+
+    /**
+     * 用户认证实名
+     * @param id
+     * @param authStatus
+     * @return
+     */
+    @PutMapping("/auth/{id}/{authStatus}")
+    public R updateAuthStatus(@PathVariable("id") Long id,@PathVariable("authStatus") Integer authStatus){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setAuthStatus(authStatus);
+        userInfoService.updateById(userInfo);
+        return R.ok();
+    }
 }

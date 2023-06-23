@@ -84,5 +84,15 @@ public class PatientController extends ApiController {
         patientService.updateById(patient);
         return R.ok();
     }
+
+    /**
+     * 根据id获取就诊人信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Patient getPatientById(@PathVariable Long id){
+        return patientService.getById(id);
+    }
 }
 

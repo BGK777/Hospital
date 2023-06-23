@@ -12,10 +12,12 @@ import com.atguigu.yygh.model.hosp.Department;
 import com.atguigu.yygh.model.hosp.Hospital;
 import com.atguigu.yygh.model.hosp.Schedule;
 import com.atguigu.yygh.vo.hosp.BookingScheduleRuleVo;
+import com.atguigu.yygh.vo.hosp.ScheduleOrderVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -274,6 +276,34 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).get();
         packageSchedule(schedule);
         return schedule;
+    }
+
+    @Override
+    public ScheduleOrderVo getScheduleOrderById(String scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).get();
+        ScheduleOrderVo scheduleOrderVo=new ScheduleOrderVo();
+        //基础信息复制到Vo
+        BeanUtils.copyProperties(schedule,scheduleOrderVo);
+        //获取医院名称
+        Hospital hospital = hospitalService.getHospitalByHoscode(schedule.getHoscode());
+        scheduleOrderVo.setHosname(hospital.getHosname());
+
+        //获取科室名称和安排日期时间
+        Department department = departmentService.getDepartment(schedule.getHoscode(), schedule.getDepcode());
+        scheduleOrderVo.setDepname(department.getDepname());
+        scheduleOrderVo.setReserveDate(schedule.getWorkDate());
+        scheduleOrderVo.setReserveTime(schedule.getWorkTime());
+
+
+        //获取预约退好截止时间
+        DateTime dateTime = this.getDateTime(new DateTime(schedule.getWorkDate()).plusDays(hospital.getBookingRule().getQuitDay()).toDate(), hospital.getBookingRule().getQuitTime());
+        scheduleOrderVo.setQuitTime(dateTime.toDate()); //预约的退号截止时间
+
+
+        //设置当天预约截止时间
+        scheduleOrderVo.setStopTime(getDateTime(schedule.getWorkDate(), hospital.getBookingRule().getStopTime()).toDate());
+
+        return scheduleOrderVo;
     }
 
     private IPage<Date> getDateList(Integer pageNum, Integer pageSize, BookingRule bookingRule) {

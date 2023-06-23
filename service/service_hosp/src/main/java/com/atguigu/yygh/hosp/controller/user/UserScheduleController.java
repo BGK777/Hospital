@@ -3,6 +3,7 @@ package com.atguigu.yygh.hosp.controller.user;
 import com.atguigu.yygh.hosp.service.ScheduleService;
 import com.atguigu.yygh.model.hosp.Schedule;
 import com.atguigu.yygh.result.R;
+import com.atguigu.yygh.vo.hosp.ScheduleOrderVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +61,15 @@ public class UserScheduleController {
     public R getScheduleDetail(@PathVariable("scheduleId") String scheduleId){
         Schedule schedule = scheduleService.getScheduleById(scheduleId);
         return R.ok().data("schedule",schedule);
+    }
+
+    /**
+     * 根据scheduleId获取排班信息
+     * @param scheduleId
+     * @return
+     */
+    @GetMapping("/{scheduleId}")
+    public ScheduleOrderVo getScheduleById(@PathVariable("scheduleId") String scheduleId){
+        return scheduleService.getScheduleOrderById(scheduleId);
     }
 }

@@ -22,6 +22,7 @@ import com.atguigu.yygh.vo.hosp.ScheduleOrderVo;
 import com.atguigu.yygh.vo.msm.MsmVo;
 import com.atguigu.yygh.vo.order.OrderMqVo;
 import com.atguigu.yygh.vo.order.OrderQueryVo;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -245,6 +246,24 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderMqVo.setMsmVo(msmVo);
         //6.给就诊人发送短信提示：
         rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_ORDER,MqConst.ROUTING_ORDER,orderMqVo);
+    }
+
+    @Override
+    public void patientRemind() {
+        //先查询当天已预约的订单，且没有取消预约
+        LambdaQueryWrapper<OrderInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(OrderInfo::getReserveDate,new DateTime().toString("yyyy-MM-dd"));
+        lambdaQueryWrapper.ne(OrderInfo::getOrderStatus,OrderStatusEnum.CANCLE);
+        //获得今天已预约的所有订单
+        List<OrderInfo> orderInfos = baseMapper.selectList(lambdaQueryWrapper);
+        //遍历分别发送就医提醒
+        for(OrderInfo orderInfo : orderInfos){
+            MsmVo msmVo = new MsmVo();
+            msmVo.setPhone(orderInfo.getPatientPhone());
+            msmVo.setParam(null);
+            msmVo.setTemplateCode("今天有预约哦！，不要忘记了");
+            rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_MSM,MqConst.ROUTING_MSM_ITEM,msmVo);
+        }
     }
 
     private void packageOrderInfo(OrderInfo item) {

@@ -21,4 +21,7 @@ public interface OrderInfoService extends IService<OrderInfo> {
     OrderInfo detail(Long orderId);
 
     void cancel(Long orderId);
+
+    void patientRemind();
+
 }

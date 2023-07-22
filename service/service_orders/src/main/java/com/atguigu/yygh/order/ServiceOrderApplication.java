@@ -17,6 +17,6 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableConfigurationProperties(value = WeixinPay.class)
 public class ServiceOrderApplication {
  public static void main(String[] args) {
- SpringApplication.run(ServiceOrderApplication.class, args);
- }
+      SpringApplication.run(ServiceOrderApplication.class, args);
+  }
 }

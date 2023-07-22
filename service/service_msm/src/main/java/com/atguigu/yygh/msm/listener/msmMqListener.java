@@ -17,10 +17,6 @@ import javax.annotation.Resource;
 
 @Component
 public class msmMqListener {
-
-    @Resource
-    private RabbitService rabbitService;
-
     @Resource
     private MsmService msmService;
 

@@ -13,5 +13,5 @@ public interface HospitalFeignClient {
      * @return
      */
     @GetMapping("/user/hosp/schedule/{scheduleId}")
-    ScheduleOrderVo getScheduleById(@PathVariable("scheduleId") String scheduleId);
+    ScheduleOrderVo getScheduleOrderById(@PathVariable("scheduleId") String scheduleId);
 }

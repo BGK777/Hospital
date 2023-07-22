@@ -306,6 +306,23 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleOrderVo;
     }
 
+    @Override
+    public boolean updateAvailableNumber(String scheduleId, Integer availableNumber) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).get();
+        schedule.setAvailableNumber(availableNumber);
+        schedule.setUpdateTime(new Date());
+        scheduleRepository.save(schedule);
+        return true;
+    }
+
+    @Override
+    public void cancel(String scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).get();
+        schedule.setAvailableNumber(schedule.getAvailableNumber()+1);
+        schedule.setUpdateTime(new Date());
+        scheduleRepository.save(schedule);
+    }
+
     private IPage<Date> getDateList(Integer pageNum, Integer pageSize, BookingRule bookingRule) {
         //获取预约周期
         Integer cycle = bookingRule.getCycle();

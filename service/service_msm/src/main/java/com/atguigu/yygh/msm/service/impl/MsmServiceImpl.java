@@ -3,6 +3,7 @@ package com.atguigu.yygh.msm.service.impl;
 import com.atguigu.yygh.msm.service.MsmService;
 import com.atguigu.yygh.msm.utils.HttpUtils;
 import com.atguigu.yygh.msm.utils.RandomUtil;
+import com.atguigu.yygh.vo.msm.MsmVo;
 import org.apache.http.HttpResponse;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,12 @@ public class MsmServiceImpl implements MsmService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void sendMessage(MsmVo msmVo) {
+        String phone = msmVo.getPhone();
+        System.out.println(msmVo.getTemplateCode());
     }
 
 }

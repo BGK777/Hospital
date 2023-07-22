@@ -32,3 +32,18 @@ spring:
         min-idle: 0
     port: 6379
     timeout: 1800000
+  rabbitmq:
+    host: 192.168.111.100
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+
+weixinpay:
+  #关联的公众号appid
+  appid: wx74862e0dfcf69954
+  #商户号
+  partner: 1558950191
+  #商户key
+  partnerkey: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
+

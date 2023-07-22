@@ -23,4 +23,8 @@ public interface ScheduleService {
     Schedule getScheduleById(String scheduleId);
 
     ScheduleOrderVo getScheduleOrderById(String scheduleId);
+
+    boolean updateAvailableNumber(String scheduleId, Integer availableNumber);
+
+    void cancel(String scheduleId);
 }

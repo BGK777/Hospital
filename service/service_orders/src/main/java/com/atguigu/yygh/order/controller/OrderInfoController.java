@@ -6,6 +6,7 @@ import com.atguigu.yygh.enums.OrderStatusEnum;
 import com.atguigu.yygh.model.order.OrderInfo;
 import com.atguigu.yygh.order.service.OrderInfoService;
 import com.atguigu.yygh.result.R;
+import com.atguigu.yygh.vo.order.OrderCountQueryVo;
 import com.atguigu.yygh.vo.order.OrderQueryVo;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import org.springframework.web.bind.annotation.*;
@@ -94,5 +95,16 @@ public class OrderInfoController extends ApiController {
         orderInfoService.cancel(orderId);
         return R.ok();
     }
+
+    /**
+     * 预约统计
+     * @param orderCountQueryVo
+     * @return
+     */
+    @PostMapping("statistic")
+    public Map<String,Object> statistic(@RequestBody OrderCountQueryVo orderCountQueryVo){
+        return orderInfoService.statistic(orderCountQueryVo);
+    }
+
 }
 

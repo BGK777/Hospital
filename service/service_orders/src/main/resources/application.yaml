@@ -39,6 +39,9 @@ spring:
     password: guest
     virtualHost: /
 
+mybatis-plus:
+  mapper-locations: classpath:com/atguigu/yygh/order/mapper/xml/*.xml
+
 weixinpay:
   #关联的公众号appid
   appid: wx74862e0dfcf69954

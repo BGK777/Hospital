@@ -20,6 +20,8 @@ import com.atguigu.yygh.order.utils.HttpRequestHelper;
 import com.atguigu.yygh.user.client.PatientFeignClient;
 import com.atguigu.yygh.vo.hosp.ScheduleOrderVo;
 import com.atguigu.yygh.vo.msm.MsmVo;
+import com.atguigu.yygh.vo.order.OrderCountQueryVo;
+import com.atguigu.yygh.vo.order.OrderCountVo;
 import com.atguigu.yygh.vo.order.OrderMqVo;
 import com.atguigu.yygh.vo.order.OrderQueryVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -35,6 +37,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 订单表(OrderInfo)表服务实现类
@@ -264,6 +267,21 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             msmVo.setTemplateCode("今天有预约哦！，不要忘记了");
             rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_MSM,MqConst.ROUTING_MSM_ITEM,msmVo);
         }
+    }
+
+    @Override
+    public Map<String, Object> statistic(OrderCountQueryVo orderCountQueryVo) {
+        //自定义sql查询记录
+        List<OrderCountVo> dataList = baseMapper.statistic(orderCountQueryVo);
+        List<String> dateList = dataList.stream().map(OrderCountVo::getReserveDate).collect(Collectors.toList());
+        List<Integer> countList = dataList.stream().map(OrderCountVo::getCount).collect(Collectors.toList());
+
+        //封装到map
+        Map<String, Object> map = new HashMap<>();
+        map.put("dateList",dateList);
+        map.put("countList",countList);
+
+        return map;
     }
 
     private void packageOrderInfo(OrderInfo item) {

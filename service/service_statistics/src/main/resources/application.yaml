@@ -1,0 +1,12 @@
+server:
+  port: 8209
+spring:
+  application:
+    name: service-statistics
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+

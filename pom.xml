@@ -10,6 +10,7 @@
         <module>hospital-manage</module>
         <module>service-client</module>
         <module>service_gateway</module>
+        <module>service-client/service_order_client</module>
     </modules>
 
     <parent>
